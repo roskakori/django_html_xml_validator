@@ -173,11 +173,15 @@ class _ContentKind(Enum):
         return (
             _ContentKind.XHTML
             if plain_content_type == "application/xhtml+xml"
-            else _ContentKind.HTML
-            if plain_content_type == "text/html"
-            else _ContentKind.XML
-            if plain_content_type in ("application/xml", "text/xml") or plain_content_type.endswith("+xml")
-            else _ContentKind.OTHER
+            else (
+                _ContentKind.HTML
+                if plain_content_type == "text/html"
+                else (
+                    _ContentKind.XML
+                    if plain_content_type in ("application/xml", "text/xml") or plain_content_type.endswith("+xml")
+                    else _ContentKind.OTHER
+                )
+            )
         )
 
 
